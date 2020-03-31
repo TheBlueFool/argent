@@ -4,4 +4,3 @@
 
 pre-commit install --install-hooks --overwrite
 pre-commit run --all-files
-pipenv --rm
