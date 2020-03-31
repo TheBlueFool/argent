@@ -1,0 +1,25 @@
+# https://github.com/pre-commit/action#using-this-action
+
+name: pre-commit
+
+on:
+    pull_request:
+    push:
+        branches: [master]
+
+jobs:
+    pre-commit:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - uses: actions/setup-python@v1
+              with:
+                  python-version: '3.7' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+                  architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+            - name: set PY
+              run: echo "::set-env name=PY::$(python -c 'import hashlib, sys;print(hashlib.sha256(sys.version.encode()+sys.executable.encode()).hexdigest())')"
+            - uses: actions/cache@v1
+              with:
+                  path: ~/.cache/pre-commit
+                  key: pre-commit|${{ env.PY }}|${{ hashFiles('.pre-commit-config.yaml') }}
+            - uses: pre-commit/action@v1.0.1
