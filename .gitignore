@@ -50,6 +50,9 @@ venv/
 .pytest_cache/
 .coverage
 .coverage.*
+*.egg-info/
+dist/
+instance/
 
 ### Monorepo Specific Exlcudes ###
 # Secrets
@@ -57,6 +60,7 @@ venv/
 
 # Local Cache
 .cache
+*.db
 
 ### OS Specific Exlcudes ###
 # macOS
