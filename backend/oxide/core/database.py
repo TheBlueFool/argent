@@ -1,5 +1,4 @@
-from marshmallow_sqlalchemy import SQLAlchemySchemaOpts, SQLAlchemySchema
-from .extensions import db
+from .extensions import db, ma
 
 
 class AbstractModel(db.Model):
@@ -8,4 +7,6 @@ class AbstractModel(db.Model):
     __abstract__ = True
 
 
-
+class BaseSchema(ma.SQLAlchemySchema):
+    class Meta:
+        sqla_session = db.session

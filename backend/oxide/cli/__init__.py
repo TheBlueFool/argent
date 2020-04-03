@@ -1,5 +1,7 @@
 import click
 from flask.cli import with_appcontext
+
+from oxide.auth.user import User, UserSchema
 from oxide.cli.test import register_tests
 from oxide.core.database import db
 
@@ -10,10 +12,12 @@ def load_cli_package(app):
 
     @app.shell_context_processor
     def make_shell_context():
+        user_schema = UserSchema()
+
         return {
             "db": db,
-            # "User": User,
-            # "UserFactory": UserFactory,
+            "User": User,
+            "user_schema": user_schema,
         }
 
 

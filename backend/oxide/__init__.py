@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import ddtrace
 import logging
 import os
 import sys
@@ -11,7 +10,7 @@ from oxide.core.extensions import db, login_manager, ma, migrate
 def create_app(config_object=None):
     """Application factory for Oxide
 
-    :param config_object: Fully populated configuration object used to build app
+    :param config_object: Fully populated configuration object
     """
     # Initialize the core application
     app = Flask(__name__, instance_relative_config=True)
@@ -19,9 +18,10 @@ def create_app(config_object=None):
     _init_app(app)
 
     # Initialize extensions
+    # Order matters: Initialize SQLAlchemy before Marshmallow
     db.init_app(app)
-    migrate.init_app(app, db)
     ma.init_app(app)
+    migrate.init_app(app, db)
     login_manager.init_app(app)
 
     # Initialize packages and Blueprints
