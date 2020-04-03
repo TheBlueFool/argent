@@ -14,7 +14,7 @@ def create_app(config_object=None):
     :param config_object: Fully populated configuration object used to build app
     """
     # Initialize the core application
-    app = Flask(__name__)
+    app = Flask(__name__, instance_relative_config=True)
     _load_config(app, config_object)
     _init_app(app)
 
@@ -48,8 +48,11 @@ def _load_config(app, config_object):
         from oxide.core.config_skeleton import Config
         from oxide.core.constants import CONFIG_PATH_ENV_VAR
 
-        app.config.from_object(Config)
-        app.config.from_envvar(CONFIG_PATH_ENV_VAR)
+        with app.app_context():
+
+            app.config.from_object(Config)
+            app.config.from_envvar(CONFIG_PATH_ENV_VAR, silent=True)
+            app.config.from_pyfile('application.cfg', silent=True)
     else:
         app.config.from_object(config_object)
 
