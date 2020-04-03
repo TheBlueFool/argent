@@ -51,8 +51,8 @@ def _load_config(app, config_object):
         with app.app_context():
 
             app.config.from_object(Config)
-            app.config.from_envvar(CONFIG_PATH_ENV_VAR, silent=True)
-            app.config.from_pyfile('application.cfg', silent=True)
+            app.config.from_envvar(CONFIG_PATH_ENV_VAR)
+            app.config.from_pyfile("application.cfg", silent=True)
     else:
         app.config.from_object(config_object)
 
