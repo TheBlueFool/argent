@@ -30,16 +30,14 @@ def create_app(config_object=None):
         from oxide.cli import load_cli_package
         from oxide.flower import load_flower_package
         from oxide.api_v0 import load_api_v0_package
-
-        @app.route("/force")
-        def hello_world():
-            return "Hello, World!"
+        from oxide.welcome import load_welcome_packeage
 
         load_core_package(app)
         load_basic_features_package(app)
         load_cli_package(app)
         load_flower_package(app)
         load_api_v0_package(app)
+        load_welcome_packeage(app)
 
     return app
 

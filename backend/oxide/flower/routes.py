@@ -1,8 +1,5 @@
-from flask import redirect, url_for, current_app, request
-from flask_login import logout_user
-
-from flask_login import current_user
 from flask import Blueprint
+from flask import request
 
 from oxide import db
 from oxide.flower.models import Flower, flower_schema, flowers_schema
