@@ -1,6 +1,6 @@
 import pytest
 
-from oxide.core.database import db
+from oxide.core.extensions import db
 from oxide import create_app
 from oxide.core.config_skeleton import Config
 

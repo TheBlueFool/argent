@@ -45,6 +45,7 @@ __pycache__/
 # Environments
 .venv
 venv/
+.tox
 
 # Unit test / coverage reports
 .pytest_cache/

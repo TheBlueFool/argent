@@ -4,7 +4,7 @@ import os
 import sys
 from flask import Flask
 
-from oxide.core.extensions import db, login_manager, ma, migrate
+from oxide.core.extensions import db, ma, migrate
 
 
 def create_app(config_object=None):
@@ -22,14 +22,14 @@ def create_app(config_object=None):
     db.init_app(app)
     ma.init_app(app)
     migrate.init_app(app, db)
-    login_manager.init_app(app)
 
     # Initialize packages and Blueprints
     with app.app_context():
         from oxide.basic_features import load_basic_features_package
         from oxide.core import load_core_package
         from oxide.cli import load_cli_package
-        from oxide.auth import load_auth_package
+        from oxide.flower import load_flower_package
+        from oxide.api_v0 import load_api_v0_package
 
         @app.route("/force")
         def hello_world():
@@ -38,7 +38,8 @@ def create_app(config_object=None):
         load_core_package(app)
         load_basic_features_package(app)
         load_cli_package(app)
-        load_auth_package(app)
+        load_flower_package(app)
+        load_api_v0_package(app)
 
     return app
 
@@ -58,6 +59,7 @@ def _load_config(app, config_object):
 
 
 def _init_app(app):
+    configure_logger(app)
     app.url_map.strict_slashes = False
     # ensure the instance folder exists
     try:

@@ -1,6 +1,4 @@
-from flask import Blueprint
-
-api_v0_bp = Blueprint("api", __name__)
+from oxide.api_v0.routes import api_v0_bp
 
 
 def load_api_v0_package(app):
